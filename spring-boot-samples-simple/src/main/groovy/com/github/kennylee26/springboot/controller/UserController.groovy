@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
 
 /**
- * <p>Created UserController on 9/1/15</p>
+ * <p>Created on 9/1/15</p>
  * @author kennylee
  */
 @RestController
