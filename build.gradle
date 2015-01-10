@@ -1,0 +1,78 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.1.RELEASE'
+    }
+    repositories {
+        jcenter()
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+ext {
+
+}
+
+configure(allprojects) { project ->
+    group = "spring-groovy-example"
+    version = '1.0'
+
+    ext {
+        junitVersion = "4.12"
+        gradleScriptDir = "${rootProject.projectDir}/gradle"
+    }
+
+
+    apply plugin: 'eclipse-wtp'
+    apply plugin: 'idea'
+    apply plugin: 'spring-boot'
+    apply plugin: 'groovy'
+
+    compileJava {
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
+    }
+
+    compileTestJava {
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
+    }
+
+    sourceSets.test.resources.srcDirs = ["src/test/resources", "src/test/java"]
+
+
+    repositories {
+        jcenter()
+        mavenLocal() //使用maven本地缓存
+    }
+
+    dependencies {
+        testCompile("junit:junit:${junitVersion}") {
+            exclude group: 'org.hamcrest', module: 'hamcrest-core'
+        }
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+    }
+}
+
+project(":spring-boot-samples-simple") {
+
+    configurations {
+        providedRuntime
+    }
+
+    dependencies {
+        //compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile("org.springframework.boot:spring-boot-starter-web")
+        compile("org.springframework.boot:spring-boot-starter-groovy-templates")
+        compile("org.codehaus.groovy:groovy")
+        providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+        providedRuntime("org.springframework.boot:spring-boot-loader")
+        testCompile("org.springframework.boot:spring-boot-starter-test")
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}

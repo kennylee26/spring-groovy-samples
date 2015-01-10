@@ -1,0 +1,4 @@
+rootProject.name = 'spring-groovy-samples'
+
+include 'spring-boot-samples-simple'
+
