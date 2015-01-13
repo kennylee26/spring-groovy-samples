@@ -5,7 +5,7 @@
 -- 一个简单的Spring Boot例子，初步开始尝试用Goovy编写，代码量更少。
 
 * [spring-boot-samples-data-jpa](spring-boot-samples-data-jpa)
--- 加入SpringData和常用的MySQL作为例子。
+-- 加入SpringData Jpa和常用的MySQL作为例子。
 
 示例工程均已Gradle构建管理，需要有一定的Gradle基础。
 
