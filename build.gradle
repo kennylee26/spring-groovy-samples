@@ -11,10 +11,6 @@ buildscript {
     }
 }
 
-ext {
-
-}
-
 configure(allprojects) { project ->
     group = "spring-groovy-example"
     version = '1.0'
@@ -49,6 +45,7 @@ configure(allprojects) { project ->
     }
 
     dependencies {
+        compile("org.codehaus.groovy:groovy")
         testCompile("junit:junit:${junitVersion}") {
             exclude group: 'org.hamcrest', module: 'hamcrest-core'
         }
@@ -56,21 +53,32 @@ configure(allprojects) { project ->
     }
 }
 
-project(":spring-boot-samples-simple") {
-
+configure(subprojects.findAll { it.name.contains('spring-boot') }) {
     configurations {
         providedRuntime
     }
 
     dependencies {
-        //compile("org.springframework.boot:spring-boot-starter-data-jpa")
-        compile("org.springframework.boot:spring-boot-starter-web")
-        compile("org.springframework.boot:spring-boot-starter-groovy-templates")
-        compile("org.codehaus.groovy:groovy")
         providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
         providedRuntime("org.springframework.boot:spring-boot-loader")
+        compile("org.springframework.boot:spring-boot-starter-web")
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
+}
+project("spring-boot-samples-simple") {
+    description = "简单的SpringBoot例子"
+
+}
+
+project("spring-boot-samples-data-jpa") {
+    description = "SpringBoot+SpringDataJpa+Mysql例子"
+
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-data-jpa")
+        compile("org.springframework.boot:spring-boot-starter-actuator")
+        compile("mysql:mysql-connector-java")
+    }
+
 }
 
 task wrapper(type: Wrapper) {
