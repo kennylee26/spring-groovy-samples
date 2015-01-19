@@ -23,7 +23,6 @@ configure(allprojects) { project ->
 
     apply plugin: 'eclipse-wtp'
     apply plugin: 'idea'
-    apply plugin: 'spring-boot'
     apply plugin: 'groovy'
 
     compileJava {
@@ -46,17 +45,17 @@ configure(allprojects) { project ->
 
     dependencies {
         compile("org.codehaus.groovy:groovy")
-        testCompile("junit:junit:${junitVersion}") {
-            exclude group: 'org.hamcrest', module: 'hamcrest-core'
-        }
+        testCompile("junit:junit:${junitVersion}")
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 }
 
-configure(subprojects.findAll { it.name.contains('spring-boot') }) {
+configure(subprojects.findAll { it.name.startsWith('spring-boot') }) {
     configurations {
         providedRuntime
     }
+
+    apply plugin: 'spring-boot'
 
     dependencies {
         providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
@@ -65,6 +64,7 @@ configure(subprojects.findAll { it.name.contains('spring-boot') }) {
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 }
+
 project("spring-boot-samples-simple") {
     description = "简单的SpringBoot例子"
 
