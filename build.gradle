@@ -60,6 +60,7 @@ configure(subprojects.findAll { it.name.startsWith('spring-boot') }) {
     dependencies {
         providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
         providedRuntime("org.springframework.boot:spring-boot-loader")
+        compile("com.google.guava:guava:18.0")
         compile("org.springframework.boot:spring-boot-starter-web")
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
@@ -77,6 +78,22 @@ project("spring-boot-samples-data-jpa") {
         compile("org.springframework.boot:spring-boot-starter-data-jpa")
         compile("org.springframework.boot:spring-boot-starter-actuator")
         compile("mysql:mysql-connector-java")
+    }
+
+}
+
+project("spring-boot-samples-shiro") {
+    description = "SpringBoot+SpringDataJpa+Mysql+Shiro例子"
+
+    ext{
+        shiroVersion = "1.2.3"
+    }
+
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+        compile("org.apache.shiro:shiro-core:${shiroVersion}")
+        compile("org.apache.shiro:shiro-web:${shiroVersion}")
+        compile("org.apache.shiro:shiro-spring:${shiroVersion}")
     }
 
 }
