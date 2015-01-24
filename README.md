@@ -7,6 +7,9 @@
 * [spring-boot-samples-data-jpa](spring-boot-samples-data-jpa)
 -- 加入SpringData Jpa和常用的MySQL作为例子。
 
+* [spring-boot-samples-shiro](spring-boot-samples-shiro)
+-- 整合Shiro，并加入Thymeleaf使用。
+
 示例工程均已Gradle构建管理，需要有一定的Gradle基础。
 
 Enjoy code, enjoy life.
