@@ -13,7 +13,6 @@ class LoginController {
 
     @RequestMapping("/login")
     def login() {
-        "login"
     }
 
     @RequestMapping("/")
