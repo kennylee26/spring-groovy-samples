@@ -112,8 +112,6 @@ project('spring-boot-samples-jsp') {
 project('spring-boot-samples-mail') {
     description = "使用SpringBoot进行邮件发送，并且使用velocity作为邮件内容模板。"
 
-    apply plugin: 'java'
-
     dependencies {
         compile("org.springframework.boot:spring-boot-starter-mail")
         compile("org.springframework.boot:spring-boot-starter-velocity")
