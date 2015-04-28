@@ -8,6 +8,8 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.4.1.RELEASE")
+        classpath("org.springframework:springloaded:${springBootVersion}")
     }
 }
 
@@ -35,6 +37,19 @@ configure(allprojects) { project ->
         targetCompatibility = 1.7
     }
 
+    task createGroovyProject << {
+        sourceSets*.groovy.srcDirs*.each { it.mkdirs() }
+        sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+    }
+
+    task createSpringBootProject(dependsOn: createGroovyProject) << {
+        def bootDirs = ['resources/static', 'resources/templates']
+        bootDirs.each { x ->
+            file(project.name + '/src/main/' + x).mkdirs()
+            file(project.name + '/src/test/' + x).mkdirs()
+        }
+    }
+
     sourceSets.test.resources.srcDirs = ["src/test/resources", "src/test/java"]
 
 
@@ -46,22 +61,6 @@ configure(allprojects) { project ->
     dependencies {
         compile("org.codehaus.groovy:groovy")
         testCompile("junit:junit:${junitVersion}")
-        testCompile("org.springframework.boot:spring-boot-starter-test")
-    }
-}
-
-configure(subprojects.findAll { it.name.startsWith('spring-boot') }) {
-    configurations {
-        providedRuntime
-    }
-
-    apply plugin: 'spring-boot'
-
-    dependencies {
-        providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
-        providedRuntime("org.springframework.boot:spring-boot-loader")
-        compile("com.google.guava:guava:18.0")
-        compile("org.springframework.boot:spring-boot-starter-web")
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }
 }
@@ -82,10 +81,10 @@ project("spring-boot-samples-data-jpa") {
 
 }
 
-project("spring-boot-samples-shiro") {
+project('spring-boot-samples-shiro') {
     description = "SpringBoot+SpringDataJpa+Mysql+Shiro例子"
 
-    ext{
+    ext {
         shiroVersion = "1.2.3"
     }
 
@@ -95,9 +94,50 @@ project("spring-boot-samples-shiro") {
         compile("org.apache.shiro:shiro-web:${shiroVersion}")
         compile("org.apache.shiro:shiro-spring:${shiroVersion}")
     }
+}
+
+project('spring-boot-samples-jsp') {
+
+    description = "SpringBoot使用jsp作为视图。"
+
+    //重要！在SpringBoot环境下，要用JSP必须打包成WAR。
+    apply plugin: 'war'
+
+    dependencies {
+        compile("javax.servlet:jstl")
+        providedRuntime("org.apache.tomcat.embed:tomcat-embed-jasper")
+    }
+}
+
+project('spring-boot-samples-mail') {
+    description = "使用SpringBoot进行邮件发送，并且使用velocity作为邮件内容模板。"
+
+    apply plugin: 'java'
+
+    dependencies {
+        compile("org.springframework.boot:spring-boot-starter-mail")
+        compile("org.springframework.boot:spring-boot-starter-velocity")
+    }
 
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '1.12'
+project('spring-boot-samples-schedule') {
+    description = "使用SpringBoot执行任务调度。"
+
+}
+
+configure(subprojects.findAll { it.name.startsWith('spring-boot') }) {
+    configurations {
+        providedRuntime
+    }
+
+    apply plugin: 'spring-boot'
+
+    dependencies {
+        providedRuntime("org.springframework.boot:spring-boot-loader")
+        compile("com.google.guava:guava:18.0")
+        providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+        compile("org.springframework.boot:spring-boot-starter-web")
+    }
+
 }

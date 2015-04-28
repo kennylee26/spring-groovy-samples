@@ -1,4 +1,5 @@
 package com.github.kennylee26.sample.shiro
+
 import com.github.kennylee26.sample.shiro.security.UserRealm
 import org.apache.shiro.spring.LifecycleBeanPostProcessor
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean
@@ -7,6 +8,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.DependsOn
+
 /**
  * <p> Shiro配置 </p>
  * <p>Created on 19/1/15.</p>

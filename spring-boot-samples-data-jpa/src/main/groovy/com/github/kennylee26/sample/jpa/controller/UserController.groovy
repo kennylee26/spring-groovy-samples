@@ -1,4 +1,4 @@
-package com.github.kennylee26.sample.jpa.controller
+package com.github.kennylee26.sample.jsp.controller
 
 import com.github.kennylee26.sample.jpa.service.UserService
 import org.springframework.context.annotation.Scope

@@ -10,6 +10,15 @@
 * [spring-boot-samples-shiro](spring-boot-samples-shiro)
 -- 整合Shiro，并加入Thymeleaf使用。
 
+* [spring-boot-samples-jsp](spring-boot-samples-jsp)
+-- SpringBoot使用jsp作为视图(注意打包成WAR)。
+
+* [spring-boot-samples-mail](spring-boot-samples-mail)
+-- 使用SpringBoot进行邮件发送，并且使用velocity作为邮件内容模板。
+
+* [spring-boot-samples-schedule](spring-boot-samples-schedule)
+-- 使用SpringBoot执行任务调度。
+
 示例工程均已Gradle构建管理，需要有一定的Gradle基础。
 
 Enjoy code, enjoy life.

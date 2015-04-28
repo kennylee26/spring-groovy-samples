@@ -3,4 +3,7 @@ rootProject.name = 'spring-groovy-samples'
 include 'spring-boot-samples-simple'
 include 'spring-boot-samples-data-jpa'
 include 'spring-boot-samples-shiro'
+include 'spring-boot-samples-jsp'
+include 'spring-boot-samples-schedule'
+include 'spring-boot-samples-mail'
 
