@@ -3,13 +3,17 @@ buildscript {
         springBootVersion = '1.2.1.RELEASE'
     }
     repositories {
+        maven {
+            name = 'aliyun-nexus'
+            url = 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
         jcenter()
         mavenLocal()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("io.spring.gradle:dependency-management-plugin:0.4.1.RELEASE")
-        classpath("org.springframework:springloaded:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE")
+        classpath("org.springframework:springloaded:1.2.6.RELEASE")
     }
 }
 
@@ -52,11 +56,8 @@ configure(allprojects) { project ->
 
     sourceSets.test.resources.srcDirs = ["src/test/resources", "src/test/java"]
 
-
-    repositories {
-        jcenter()
-        mavenLocal() //使用maven本地缓存
-    }
+    // re-use repositories from buildscript
+    rootProject.buildscript.repositories.each { repositories.add(it) }
 
     dependencies {
         compile("org.codehaus.groovy:groovy")
@@ -110,11 +111,14 @@ project('spring-boot-samples-jsp') {
 }
 
 project('spring-boot-samples-mail') {
+    ext {
+        springBootVersion = '1.2.1.RELEASE'
+    }
     description = "使用SpringBoot进行邮件发送，并且使用velocity作为邮件内容模板。"
 
     dependencies {
-        compile("org.springframework.boot:spring-boot-starter-mail")
-        compile("org.springframework.boot:spring-boot-starter-velocity")
+        compile("org.springframework.boot:spring-boot-starter-mail:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-velocity:${springBootVersion}")
     }
 
 }
